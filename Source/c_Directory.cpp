@@ -1,4 +1,25 @@
 #include "c_Directory.h"
+#include <fstream>
+void c_Directory::showElement(int v)
+{
+	std::cout << this->mas[v].name << "\t" << this->mas[v].occupation << "\t" << this->mas[v].owner <<
+		"\t" << this->mas[v].adress << "\t" << this->mas[v].number << "\n";
+}
+
+std::string c_Directory::stringForSave(int v)
+{
+	std::string res;
+	res += mas[v].adress;
+	res += ':';
+	res += mas[v].name;
+	res += ':';
+	res += mas[v].number;
+	res += ':';
+	res += mas[v].occupation;
+	res += ':';
+	res += mas[v].owner;
+	return res;
+}
 
 c_Directory::c_Directory()
 {
@@ -89,4 +110,103 @@ void c_Directory::print()
 		std::cout << this->mas[i].name << "\t" << this->mas[i].occupation << "\t" << this->mas[i].owner <<
 			"\t" << this->mas[i].adress << "\t" << this->mas[i].number << "\n";
 ;	}
+}
+
+void c_Directory::searchByName(std::string name)
+{
+	for (size_t i = 0; i < this->size; i++)
+	{
+		if (mas[i].name == name) {
+			showElement(i);
+			break;
+		}	
+	}
+}
+
+void c_Directory::searchByOwner(std::string owner)
+{
+	for (size_t i = 0; i < this->size; i++)
+	{
+		if (mas[i].owner == owner) {
+			showElement(i);
+			break;
+		}	
+	}
+}
+
+void c_Directory::searchByNumber(std::string number)
+{
+	for (size_t i = 0; i < this->size; i++)
+	{
+		if (mas[i].number == number) {
+			showElement(i);
+			break;
+		}
+	}
+}
+
+void c_Directory::searchByOccupation(std::string occupation)
+{
+	for (size_t i = 0; i < this->size; i++)
+	{
+		if (mas[i].occupation == occupation) {
+			showElement(i);
+			break;
+		}	
+	}
+}
+
+void c_Directory::saveToFile()
+{
+	if (this->size < 0) {
+		return;
+	}
+	std::ofstream out("Data.txt");
+	if (out.is_open() == false) {
+		std::cout << "Error\n";
+		return;
+	}
+
+	for (size_t i = 0; i < this->size; i++)
+	{
+		out << this->stringForSave(i) << "\n";
+	}
+	out.close();
+	std::cout << "Done!\n";
+}
+
+void c_Directory::loadFromFile()
+{
+	std::ifstream in("Data.txt");
+	if (in.is_open() == false) {
+		std::cout << "Error\n";
+		return;
+	}
+	std::string str;
+	std::string sep = ":";
+	size_t pos = 0;
+	while (!in.eof())
+	{
+		std::getline(in, str);
+		Firma fr;
+		pos = str.find(sep);
+		fr.adress = str.substr(0, pos);
+		str.erase(0, pos + sep.length());
+		pos = str.find(sep);
+		fr.name = str.substr(0, pos);
+		str.erase(0, pos + sep.length());
+		pos = str.find(sep);
+		fr.number = str.substr(0, pos);
+		str.erase(0, pos + sep.length());
+		pos = str.find(sep);
+		fr.occupation = str.substr(0, pos);
+		str.erase(0, pos + sep.length());
+		pos = str.find(sep);
+		fr.owner = str.substr(0, pos);
+		str.erase(0, pos + sep.length());
+		pos = str.find(sep);
+		this->add(fr);
+		
+	}
+	std::cout << "Done!\n";
 }

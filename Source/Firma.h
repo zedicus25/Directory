@@ -5,7 +5,7 @@ struct Firma
 {
 	std::string name;
 	std::string owner;
-	unsigned int number;
+	std::string number;
 	std::string adress;
 	std::string occupation;
 
@@ -14,7 +14,7 @@ struct Firma
 
 	}
 
-	Firma(std::string name, std::string owner, unsigned int number, std::string adress, std::string occupation)
+	Firma(std::string name, std::string owner, std::string number, std::string adress, std::string occupation)
 	{
 		this->name = name;
 		this->owner = owner;
