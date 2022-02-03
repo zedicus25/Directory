@@ -118,7 +118,6 @@ void c_Directory::searchByName(std::string name)
 	{
 		if (mas[i].name == name) {
 			showElement(i);
-			break;
 		}	
 	}
 }
@@ -129,7 +128,6 @@ void c_Directory::searchByOwner(std::string owner)
 	{
 		if (mas[i].owner == owner) {
 			showElement(i);
-			break;
 		}	
 	}
 }
@@ -140,7 +138,6 @@ void c_Directory::searchByNumber(std::string number)
 	{
 		if (mas[i].number == number) {
 			showElement(i);
-			break;
 		}
 	}
 }
@@ -151,7 +148,6 @@ void c_Directory::searchByOccupation(std::string occupation)
 	{
 		if (mas[i].occupation == occupation) {
 			showElement(i);
-			break;
 		}	
 	}
 }
